@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>İbrahim'in Deneme Sayfası</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <link type="text/css" rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body>
+
+  <div class="container" title="Kayıt bilgilerinizi giriniz">
+    <div class="row">
+      <div class="col-md-offset-5 col-md-3">
+        <div class="form-login">
+          <h4>Turna Teknoloji</h4>
+          <form name="myFormSignUp" id="myFormSignUp" method="post" action="/signupForm" oninput="cleanErrorMsg()">
+            <input type="text" name="userNameSurname" id="userNameSurname" class="form-control input-sm chat-input" placeholder="Ad Soyad (6-60 karakter)" />
+            </br>
+            <input type="email" name="userEmail" id="userEmail" class="form-control input-sm chat-input" placeholder="E-posta" />
+            </br>
+            <input type="password" name="userPsw" id="userPsw" class="form-control input-sm chat-input" placeholder="Şifre (6-20 karakter)" />
+            </br>
+            <input type="password" name="userPswConfirm" id="userPswConfirm" class="form-control input-sm chat-input" placeholder="Şifre (tekrar)" />
+            </br>
+            <input type="text" name="userSecretQ" id="userSecretQ" class="form-control input-sm chat-input" placeholder="Güvenlik sorusu (6-60 karakter)" />
+            </br>
+            <input type="password" name="userSecretA" id="userSecretA" class="form-control input-sm chat-input" placeholder="Güvenlik yanıtı (6-20 karakter)" />
+            </br>
+            <div class="wrapper">
+              <span class="group-btn">
+        <button type="button" class="btn btn-primary btn-md" title="Kaydınızı tamamlamak için tıklayınız" onclick="myform()">Kaydet<i class="fa fa-sign-in"></i></a>
+        </span>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-5 col-md-3">
+        <a href="/login" title="Giriş sayfasına dönmek için tıklayınız">Giriş Sayfası<i class="fa fa-sign-in"></i></a>
+        <a href="/forgotpsw" style="float: right" title="Şifrenizi hatırlamıyorsanız tıklayınız">Şifremi unuttum<i class="fa fa-sign-in"></i></a>
+        <br><br>
+        <p name="errorMsg" id="errorMsg" style="color:red; font: normal 12px Roboto,arial,sans-serif; text-align: left"></p>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    var fieldNameSurname = document.getElementById("userNameSurname");
+    var fieldEmail = document.getElementById("userEmail");
+    var fieldPsw = document.getElementById("userPsw");
+    var fieldPswConfirm = document.getElementById("userPswConfirm");
+    var fieldSecretQ = document.getElementById("userSecretQ");
+    var fieldSecretA = document.getElementById("userSecretA");
+
+    var errorMsg = '';
+    var errorCounter = 0;
+    var letters = /^[A-Za-zğüşiöçıIĞÜŞİÖÇ ]+$/;
+    var mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+    function validateForm() {
+
+      // Check for Name Surname (Must be at least 6 characters)-----------------
+      if (fieldNameSurname.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] \"Ad Soyad\" boş bırakılamaz !';
+        fieldNameSurname.className = "form-control input-sm has-error";
+      } else if (fieldNameSurname.value.length < 6 || fieldNameSurname.value.length > 60) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] \"Ad Soyad\" uzunluğu 6-60 karakter arasında olabilir !';
+        fieldNameSurname.className = "form-control input-sm has-error";
+      } else if (!fieldNameSurname.value.match(letters)) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] \"Ad Soyad\" yalnızca harflerden oluşabilir !';
+        fieldNameSurname.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      // Check for Email (Must be a proper email) ------------------------------
+
+      if (fieldEmail.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] E-posta adresi boş bırakılamaz !';
+        fieldEmail.className = "form-control input-sm has-error";
+      } else if (fieldEmail.value.length > 60) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] E-posta adresi bu kadar uzun olamaz !';
+        fieldEmail.className = "form-control input-sm has-error";
+      } else if (!fieldEmail.value.match(mailformat)) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Geçerli bir eposta adresi girilmeli !';
+        fieldEmail.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      // Check for password ----------------------------------------------------
+      if (fieldPsw.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Şifre boş bırakılamaz !';
+        fieldPsw.className = "form-control input-sm has-error";
+      } else if (fieldPswConfirm.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Şifre doğrulama boş bırakılamaz !';
+        fieldPswConfirm.className = "form-control input-sm has-error";
+      } else if (fieldPsw.value != fieldPswConfirm.value) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Girdiğiniz şifreler aynı değil !';
+        fieldPswConfirm.className = "form-control input-sm has-error";
+      } else if (fieldPsw.value.length > 20 || fieldPsw.value.length < 6) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Şifre en az 6, en çok 20 karakter olabilir!';
+        fieldPsw.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      // Check for SecretQ ----------------------------------------------------
+      if (fieldSecretQ.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Güvenlik sorusu boş bırakılamaz !';
+        fieldSecretQ.className = "form-control input-sm has-error";
+      } else if (fieldSecretQ.value.length > 60 || fieldSecretQ.value.length < 6) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Güvenlik sorusu en az 6, en çok 50 karakter olabilir!';
+        fieldSecretQ.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      // Check for SecretA ----------------------------------------------------
+      if (fieldSecretA.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Güvenlik yanıtı boş bırakılamaz !';
+        fieldSecretA.className = "form-control input-sm has-error";
+      } else if (fieldSecretA.value.length > 20 || fieldSecretA.value.length < 6) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Güvenlik yanıtı en az 6, en çok 20 karakter olabilir!';
+        fieldSecretA.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      if (errorCounter > 0) {
+        document.getElementById("errorMsg").innerHTML = errorMsg;
+        errorMsg = '';
+        errorCounter = 0;
+        document.body.focus();
+        return false;
+      } else if (errorCounter == 0) {
+        document.body.focus();
+        return true;
+      }
+
+    }
+
+    function cleanErrorMsg() {
+      fieldNameSurname.className = "form-control input-sm chat-input";
+      fieldEmail.className = "form-control input-sm chat-input";
+      fieldPsw.className = "form-control input-sm chat-input";
+      fieldPswConfirm.className = "form-control input-sm chat-input";
+      fieldSecretQ.className = "form-control input-sm chat-input";
+      fieldSecretA.className = "form-control input-sm chat-input";
+
+      errorMsg = '';
+      errorCounter = 0;
+      document.getElementById("errorMsg").innerHTML = '';
+    }
+
+    function myform() {
+      if (validateForm()) {
+        var form = document.getElementById("myFormSignUp");
+        form.submit();
+      } else {
+        document.body.focus();
+      }
+    }
+  </script>
+
+</body>
+
+</html>

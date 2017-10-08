@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>İbrahim'in Deneme Sayfası</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <link type="text/css" rel="stylesheet" href="/css/main.css" />
+
+</head>
+
+<body>
+
+  <div class="container" title="Kayıt bilgilerinizi giriniz">
+    <div class="row">
+      <div class="col-md-offset-5 col-md-3">
+        <div class="form-login">
+          <h4>Turna Teknoloji</h4>
+          <form name="myFormForgotPsw" id="myFormForgotPsw" method="post" action="/forgotPswForm" oninput="cleanErrorMsg()">
+
+            <input type="email" name="userEmail" id="userEmail" class="form-control input-sm chat-input" placeholder="E-posta" />
+            </br>
+
+            <div class="wrapper">
+              <span class="group-btn">
+        <button type="button" class="btn btn-primary btn-md" title="Şifrenizi sıfırlamak için tıklayınız" onclick="myform()">Şifremi sıfırla<i class="fa fa-sign-in"></i></a>
+        </span>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-offset-4 col-md-5" style="text-align: center">
+        <a href="/login" title="Giriş sayfasına dönmek için tıklayınız">Giriş Sayfası<i class="fa fa-sign-in"></i></a>
+
+        <br><br>
+        <p name="errorMsg" id="errorMsg" style="color:red; font: normal 12px Roboto,arial,sans-serif; text-align: center"></p>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript">
+    var fieldEmail = document.getElementById("userEmail");
+
+    var errorMsg = '';
+    var errorCounter = 0;
+    var letters = /^[A-Za-zğüşiöçıIĞÜŞİÖÇ ]+$/;
+    var mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+
+    function validateForm() {
+
+      // Check for Email (Must be a proper email) ------------------------------
+
+      if (fieldEmail.value.length == 0) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] E-posta adresi boş bırakılamaz !';
+        fieldEmail.className = "form-control input-sm has-error";
+      } else if (fieldEmail.value.length > 60) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] E-posta adresi bu kadar uzun olamaz !';
+        fieldEmail.className = "form-control input-sm has-error";
+      } else if (!fieldEmail.value.match(mailformat)) {
+        ++errorCounter;
+        errorMsg += '<br>[HATA-' + errorCounter + '] Geçerli bir eposta adresi girilmeli !';
+        fieldEmail.className = "form-control input-sm has-error";
+      }
+      // -----------------------------------------------------------------------
+
+      if (errorCounter > 0) {
+        document.getElementById("errorMsg").innerHTML = errorMsg;
+        errorMsg = '';
+        errorCounter = 0;
+        document.body.focus();
+        return false;
+      } else if (errorCounter == 0) {
+        document.body.focus();
+        return true;
+      }
+
+    }
+
+    function cleanErrorMsg() {
+
+      fieldEmail.className = "form-control input-sm chat-input";
+
+      errorMsg = '';
+      errorCounter = 0;
+      document.getElementById("errorMsg").innerHTML = '';
+    }
+
+    function myform() {
+      if (validateForm()) {
+        var form = document.getElementById("myFormForgotPsw");
+        form.submit();
+      } else {
+        document.body.focus();
+      }
+    }
+  </script>
+
+</body>
+
+</html>
