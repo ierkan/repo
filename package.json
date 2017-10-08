@@ -1,0 +1,30 @@
+{
+  "name": "myauthproject",
+  "version": "1.0.0",
+  "description": "Yet another simple but useful user authentication module",
+  "main": "myauth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "auth"
+  ],
+  "author": "Ibrahim Erkan",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "express-brute": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.0",
+    "md5": "^2.2.1",
+    "moment": "^2.18.1",
+    "mongodb": "^2.2.31",
+    "mongodb-stitch": "^1.0.1",
+    "nodemailer": "^4.1.0",
+    "nodemon": "^1.12.1",
+    "pug": "^2.0.0-rc.4",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {}
+}
