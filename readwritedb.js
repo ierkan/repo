@@ -1,5 +1,5 @@
 
-var url = "mongodb://[username]:[Password]@cluster0-shard-00-00-vnfnc.mongodb.net:27017,cluster0-shard-00-01-vnfnc.mongodb.net:27017,cluster0-shard-00-02-vnfnc.mongodb.net:27017/turna?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
+var url = "[MongoDB connection URL here]";
 var MongoClient = require('mongodb').MongoClient;
 
 var readWriteDB = function(myOptions, callback) {
