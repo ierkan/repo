@@ -1,20 +1,5 @@
 function validateFields(fields, callback) {
 
-  // fields is the req.body object
-  // Object.keys(req.body) returns fieldnames as an array
-
-  /*
-  "userNameSurname"
-  "userEmail"
-  "userPsw"
-  "userPswConfirm"
-  "userSignupDate" NOT THIS ONE
-  "userConfirmStatus" NOT THIS ONE
-  "userConfirmLink" NOT THIS ONE
-  "userPswResetLink" NOT THIS ONE
-  "userSecretQ" NOT THIS ONE
-  "userSecretA"
-  */
   var errorCounter = 0;
   var letters = /^[A-Za-zğüşiöçıIĞÜŞİÖÇ ]+$/;
   var mailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
