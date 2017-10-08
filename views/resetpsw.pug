@@ -1,0 +1,110 @@
+doctype html
+html
+    head
+        meta(charset="utf-8")
+        meta(http-equiv="x-ua-compatible", content="ie=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        title İbrahim'in Deneme Sayfası
+        // Latest compiled and minified CSS
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+        // Optional theme
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp", crossorigin="anonymous")
+        // Latest compiled and minified JavaScript
+        script(src="https://code.jquery.com/jquery-2.2.4.min.js", crossorigin="anonymous")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js", integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa", crossorigin="anonymous")
+        link(type="text/css", rel="stylesheet", href="/css/main.css")
+    body
+        .container(title="Kayıt bilgilerinizi giriniz")
+            .row
+                .col-md-offset-5.col-md-3
+                    .form-login
+                        h4 Reset your password
+                        form#myFormPswReset(name="myFormPswReset", method="post", action="/resetPswForm", oninput="cleanErrorMsg()")
+                            input#userEmail(type="email", name="userEmail", style="display: none")
+                            br
+                            input#userPsw.form-control.input-sm.chat-input(type="password", name="userPsw", placeholder="Yeni şifre (6-20 karakter)")
+                            br
+                            input#userPswConfirm.form-control.input-sm.chat-input(type="password", name="userPswConfirm", placeholder="Yeni şifre (tekrar)")
+                            br
+                            p#userSecretQ(name="userSecretQ", style="color:#969691; font: normal 12px Roboto,arial,sans-serif; text-align: left") !{userSecretQ}
+                            input#userSecretA.form-control.input-sm.chat-input(type="text", name="userSecretA", placeholder="Yanıtınız (6-20 karakter)")
+                            br
+                            .wrapper
+                                span.group-btn
+                                    button.btn.btn-primary.btn-md(type="button", title="Kaydınızı tamamlamak için tıklayınız", onclick="myform()")
+                                        | Kaydet
+                                        i.fa.fa-sign-in
+        .container
+            .row
+                .col-md-offset-4.col-md-5(style="text-align: center")
+                    a(href="/login", title="Giriş sayfasına dönmek için tıklayınız")
+                        | Giriş Sayfası
+                        i.fa.fa-sign-in
+                    br
+                    br
+                    p#errorMsg(name="errorMsg", style="color:red; font: normal 12px Roboto,arial,sans-serif")
+        script(type="text/javascript").
+            document.getElementById("userEmail").value = !{userMsg};
+            var fieldPsw = document.getElementById("userPsw");
+            var fieldPswConfirm = document.getElementById("userPswConfirm");
+            var fieldSecretA = document.getElementById("userSecretA");
+            var errorMsg = '';
+            var errorCounter = 0;
+            function validateForm() {
+            // Check for password ----------------------------------------------------
+            if (fieldPsw.value.length == 0) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Şifre boş bırakılamaz !';
+            fieldPsw.className = "form-control input-sm has-error";
+            } else if (fieldPswConfirm.value.length == 0) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Şifre doğrulama boş bırakılamaz !';
+            fieldPswConfirm.className = "form-control input-sm has-error";
+            } else if (fieldPsw.value != fieldPswConfirm.value) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Girdiğiniz şifreler aynı değil !';
+            fieldPswConfirm.className = "form-control input-sm has-error";
+            } else if (fieldPsw.value.length > 20 || fieldPsw.value.length < 6) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Şifre en az 6, en çok 20 karakter olabilir!';
+            fieldPsw.className = "form-control input-sm has-error";
+            }
+            // -----------------------------------------------------------------------
+            // Check for usersecretA ----------------------------------------------------
+            if (fieldSecretA.value.length == 0) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Yanıt boş bırakılamaz !';
+            fieldSecretA.className = "form-control input-sm has-error";
+            } else if (fieldSecretA.value.length > 20 || fieldSecretA.value.length < 6) {
+            ++errorCounter;
+            errorMsg += '<br>[HATA-' + errorCounter + '] Yanıt en az 6, en çok 20 karakter olabilir!';
+            fieldSecretA.className = "form-control input-sm has-error";
+            }
+            // -----------------------------------------------------------------------
+            if (errorCounter > 0) {
+            document.getElementById("errorMsg").innerHTML = errorMsg;
+            errorMsg = '';
+            errorCounter = 0;
+            document.body.focus();
+            return false;
+            } else if (errorCounter == 0) {
+            document.body.focus();
+            return true;
+            }
+            }
+            function cleanErrorMsg() {
+            fieldPsw.className = "form-control input-sm chat-input";
+            fieldPswConfirm.className = "form-control input-sm chat-input";
+            fieldSecretA.className = "form-control input-sm chat-input";
+            errorMsg = '';
+            errorCounter = 0;
+            document.getElementById("errorMsg").innerHTML = '';
+            }
+            function myform() {
+            if (validateForm()) {
+            var form = document.getElementById("myFormPswReset");
+            form.submit();
+            } else {
+            document.body.focus();
+            }
+            }
