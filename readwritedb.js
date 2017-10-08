@@ -12,7 +12,7 @@ MongoClient.login().then(() =>
   console.error(err)
 }); */
 
-var url = "mongodb://ibrahimerkan:20Denver_16@cluster0-shard-00-00-vnfnc.mongodb.net:27017,cluster0-shard-00-01-vnfnc.mongodb.net:27017,cluster0-shard-00-02-vnfnc.mongodb.net:27017/turna?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
+var url = "mongodb://[username]:[Password]@cluster0-shard-00-00-vnfnc.mongodb.net:27017,cluster0-shard-00-01-vnfnc.mongodb.net:27017,cluster0-shard-00-02-vnfnc.mongodb.net:27017/turna?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
 var MongoClient = require('mongodb').MongoClient;
 // var assert = require('assert');
 //var url = 'mongodb://localhost:27017/test';

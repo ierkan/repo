@@ -10,7 +10,7 @@ var myEmailer = function(mailTo,subject, myHtml, callBack) {
 
   // setup email data with unicode symbols
   var mailOptions = {
-    from: '"Turna Teknoloji A.Ş." <turnabilgi@gmail.com>', // sender address
+    from: '[Your email address here]', // sender address
     to: '', //req.body.uname, // list of receivers
     subject: '', // Subject line
     text: '', // plain text body
